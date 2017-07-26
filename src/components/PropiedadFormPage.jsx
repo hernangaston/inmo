@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { savePropiedad, fetchPropiedad } from '../redux/actions';
+import { savePropiedad } from '../redux/actions';
 import PropiedadForm from './PropiedadForm.jsx';
 
 
@@ -13,12 +13,8 @@ class PropiedadFormPage extends Component {
 		}
 	}
 
-	componentDidMount(){
-		this.props.fetchPropiedad(this.props._id);
-	}
-
-	savePropiedad({ _id, titulo, precio, descripcion }){
-		return this.props.savePropiedad({ _id, titulo, precio, descripcion })
+	savePropiedad(data){
+		return this.props.savePropiedad(data)
 		.then(this.setState({redirect: true}));				
 	}
 
@@ -41,9 +37,9 @@ class PropiedadFormPage extends Component {
 
 function mapStateToProps(state, props) {	
 	return {
-		propiedad: state.propiedades.find(item => item._id === props._id)
+		propiedad: state.propiedades.find(item => {item.id === props._id})
 	}
 	return { propiedad: null };
 };
 
-export default connect(mapStateToProps, { savePropiedad, fetchPropiedad })(PropiedadFormPage);
+export default connect(mapStateToProps, { savePropiedad })(PropiedadFormPage);

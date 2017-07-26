@@ -1,78 +1,118 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+
+var arr=[];
 
 class PropiedadForm extends Component {	
 	constructor(props) {
 		super(props);
 		this.state = {
-			//_id: this.props.propiedad ? this.props.propiedad._id : null,
+			_id: this.props.propiedad ? this.props.propiedad._id : null,
 			titulo: this.props.propiedad ? this.props.propiedad.titulo : '',
 			precio: this.props.propiedad ? this.props.propiedad.precio : '',
-			descripcion: this.props.propiedad ? this.props.propiedad.descripcion : '',			
-			errores: false,
-			fotoInput: ''
+			descripcion: this.props.propiedad ? this.props.propiedad.descripcion : '',
+			fotos: this.props.propiedad ? this.props.propiedad.fotos : [],			
+			errores: false
 		};
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handle = this.handle.bind(this);
+		this.handleFoto = this.handleFoto.bind(this);
 	}
-
-
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({
-			//_id: nextProps.propiedad._id,
+			_id: nextProps.propiedad._id,
 			titulo: nextProps.propiedad.titulo,
 			precio: nextProps.propiedad.precio,
-			descripcion: nextProps.propiedad.descripcion
+			descripcion: nextProps.propiedad.descripcion,
+			fotos: nextProps.propiedad.fotos
 		})
 	}
 
-
 	handle(e){
-		//console.log({ [e.target.name]: e.target.value });
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({ [e.target.name]: e.target.value });				
 	}
 
+
+	handleFoto(e){
+		var formData = new FormData();
+
+		for(var i = 0; i < e.target.files.length; i++){
+			//console.log(e.target.files[i].name);
+			var file = e.target.files[i];
+			formData.append([e.target.name], file, file.name);
+			arr.push(file.name);
+		};
+
+
+		/*$.ajax({
+			url: '/upload',
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: (data) => {
+				console.log("Exito");
+			}
+		});*/
+
+		axios({
+			method: 'post',
+			url: '/upload',
+			data: formData,
+		})
+		.then((res) => { console.log("Exito: " + res);})
+		.catch((err) => { console.log("Error" + err);});
+	}
+
+
 	handleSubmit(e){
-		e.preventDefault();	
+		e.preventDefault();
+
 		const { titulo, precio, descripcion } = this.state;
-		this.props.savePropiedad({ titulo, precio, descripcion });
-		console.log("Enviada");
+		
+		this.props.savePropiedad({ titulo, precio, descripcion });	
 	}
 
 	render() { 	
-		const form = (
-		    <form action="POST" className="col s6 offset-s3" onSubmit={this.handleSubmit.bind(this)} >
-		      <div className="row">
+		const form = (<form className="col s6 offset-s3" encType="multipart/form-data" onSubmit={this.handleSubmit} >
 		        <div className="input-field col s12">
+		          <label htmlFor="titulo">Titulo</label>
 		          <input 
-		           placeholder="Placeholder"
 		           id="titulo"
-		           className={this.state.valid}
 		           name="titulo"
 		           type="text"
-		           onChange={this.handle.bind(this)}
+		           onChange={this.handle}
 		           value={this.state.titulo} />
-		          <label htmlFor="titulo">Titulo</label>
 		        </div>		        		        
 		        <div className="input-field col s12">
+		          <label htmlFor="precio">Precio</label>
 		          <input 
-		           placeholder="Placeholder"
 		           id="precio"
-		           className="invalid"
 		           name="precio"
 		           type="text"
-		           onChange={this.handle.bind(this)}
+		           onChange={this.handle}
 		           value={this.state.precio} />
-		          <label htmlFor="precio">Precio</label>
 		        </div>
 		        <div className="input-field col s12">
+		          <label htmlFor="textarea">Descripcion</label>
 		          <textarea 
 		           id="descripcion"
 		           className="materialize-textarea"
 		           name="descripcion"
-		           onChange={this.handle.bind(this)}
+		           onChange={this.handle}
 		           value={this.state.descripcion}></textarea>
-		          <label htmlFor="textarea">Descripcion</label>
 		        </div>
-		      </div>
+		        <div className="file-field input-field col s12">
+		          <div className="btn">
+		           <span>File</span>
+		           <input type="file" name="fotoInput" onChange={this.handleFoto} multiple />
+		          </div>
+		          <div className="file-path-wrapper">
+		           	<input className="file-path validate" type="text" placeholder="Upload one or more files" />
+		          </div>
+		        </div>		          
 		      <button className="btn">Enviar</button>
 		    </form>);
 		return(<div className="container">{ form }</div>);
@@ -82,4 +122,5 @@ class PropiedadForm extends Component {
 
 
 export default PropiedadForm;
+
 

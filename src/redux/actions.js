@@ -47,7 +47,7 @@ export function fetchPropiedad(id){
 export function savePropiedad(data) {
 	return dispatch => {
 		return fetch('/api/propiedades', {
-			method: 'post',
+			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {
 				"Content-Type": "application/json"
@@ -56,4 +56,6 @@ export function savePropiedad(data) {
 		.then(data => dispatch(addPropiedad(data.propiedad)));
 	}
 }
+
+
 
