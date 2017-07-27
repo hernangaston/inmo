@@ -3,6 +3,8 @@ import axios from 'axios';
 
 
 var arr=[];
+//feromulario para agregar una propiedad al sistema
+
 
 class PropiedadForm extends Component {	
 	constructor(props) {
@@ -34,7 +36,8 @@ class PropiedadForm extends Component {
 		this.setState({ [e.target.name]: e.target.value });				
 	}
 
-
+	//manejador de las imagenes que subo 
+	//uso una funcion para subirlas als servidor
 	handleFoto(e){
 		var formData = new FormData();
 
@@ -44,26 +47,14 @@ class PropiedadForm extends Component {
 			formData.append([e.target.name], file, file.name);
 			arr.push(file.name);
 		};
-
-
-		/*$.ajax({
-			url: '/upload',
-			type: 'POST',
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: (data) => {
-				console.log("Exito");
-			}
-		});*/
-
-		axios({
+		this.props.uploadImage(formData);
+		/*axios({
 			method: 'post',
 			url: '/upload',
 			data: formData,
 		})
 		.then((res) => { console.log("Exito: " + res);})
-		.catch((err) => { console.log("Error" + err);});
+		.catch((err) => { console.log("Error" + err);});*/
 	}
 
 

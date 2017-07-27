@@ -29418,7 +29418,8 @@ var PropiedadFormPage = function (_Component) {
 				null,
 				this.state.redirect ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' }) : _react2.default.createElement(_PropiedadForm2.default, {
 					propiedad: this.props.propiedad,
-					savePropiedad: this.savePropiedad.bind(this)
+					savePropiedad: this.savePropiedad.bind(this),
+					uploadImage: this.uploadImage.bind(this)
 				})
 			);
 		}
@@ -29436,7 +29437,7 @@ function mapStateToProps(state, props) {
 	return { propiedad: null };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { savePropiedad: _actions.savePropiedad })(PropiedadFormPage);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { savePropiedad: _actions.savePropiedad, uploadImage: _actions.uploadImage })(PropiedadFormPage);
 
 /***/ }),
 /* 280 */
@@ -29470,6 +29471,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var arr = [];
+//feromulario para agregar una propiedad al sistema
+
 
 var PropiedadForm = function (_Component) {
 	_inherits(PropiedadForm, _Component);
@@ -29509,6 +29512,10 @@ var PropiedadForm = function (_Component) {
 		value: function handle(e) {
 			this.setState(_defineProperty({}, e.target.name, e.target.value));
 		}
+
+		//manejador de las imagenes que subo 
+		//uso una funcion para subirlas als servidor
+
 	}, {
 		key: 'handleFoto',
 		value: function handleFoto(e) {
@@ -29520,27 +29527,14 @@ var PropiedadForm = function (_Component) {
 				formData.append([e.target.name], file, file.name);
 				arr.push(file.name);
 			};
-
-			/*$.ajax({
+			this.props.uploadImage(formData);
+			/*axios({
+   	method: 'post',
    	url: '/upload',
-   	type: 'POST',
    	data: formData,
-   	processData: false,
-   	contentType: false,
-   	success: (data) => {
-   		console.log("Exito");
-   	}
-   });*/
-
-			(0, _axios2.default)({
-				method: 'post',
-				url: '/upload',
-				data: formData
-			}).then(function (res) {
-				console.log("Exito: " + res);
-			}).catch(function (err) {
-				console.log("Error" + err);
-			});
+   })
+   .then((res) => { console.log("Exito: " + res);})
+   .catch((err) => { console.log("Error" + err);});*/
 		}
 	}, {
 		key: 'handleSubmit',
