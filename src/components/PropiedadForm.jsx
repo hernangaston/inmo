@@ -33,7 +33,10 @@ class PropiedadForm extends Component {
 	}
 
 	handle(e){
-		this.setState({ [e.target.name]: e.target.value });				
+		this.setState({ [e.target.name]: e.target.value });
+		if(typeof this.state.titulo != "string" ){
+
+		}				
 	}
 
 	//manejador de las imagenes que subo 
@@ -47,13 +50,15 @@ class PropiedadForm extends Component {
 			formData.append([e.target.name], file, file.name);
 			arr.push(file.name);
 		};
-		this.props.uploadImage(formData);
-		/*axios({
+
+
+		//this.props.uploadImage(formData);
+		axios({
 			method: 'post',
 			url: '/upload',
 			data: formData,
 		})
-		.then((res) => { console.log("Exito: " + res);})
+		/*.then((res) => { console.log("Exito: " + res);})
 		.catch((err) => { console.log("Error" + err);});*/
 	}
 

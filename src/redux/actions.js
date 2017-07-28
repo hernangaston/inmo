@@ -1,10 +1,14 @@
 //import es6-promise from 'es6-promise';
 //import fetch from 'isomorphic-fetch';
-//import axios from 'axios';
+import axios from 'axios';
 
 export const SET_PROPIEDADES = 'SET_PROPIEDADES';
 export const ADD_PROPIEDAD = 'ADD_PROPIEDAD';
 export const PROPIEDAD_FETCHED = 'PROPIEDAD_FETCHED';
+export const SUCCESS_UPLOAD = 'SUCCESS_UPLOAD';
+export const FAIL_UPLOAD = 'FAIL_UPLOAD';
+
+
 
 export function setPropiedades(propiedades){
 	return {
@@ -24,6 +28,21 @@ export function propiedadFetched(propiedad){
 	return {
 		type: PROPIEDAD_FETCHED,
 		propiedad
+	}
+}
+
+export function successUpload(res){
+	return {
+		type: SUCCESS_UPLOAD,
+		res
+	}
+}
+
+
+export function failUpload(err){
+	return {
+		type: FAIL_UPLOAD,
+		err
 	}
 }
 
@@ -56,6 +75,5 @@ export function savePropiedad(data) {
 		.then(data => dispatch(addPropiedad(data.propiedad)));
 	}
 }
-
 
 

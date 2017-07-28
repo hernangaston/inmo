@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
@@ -23,7 +24,7 @@ app.post('/upload', (req, res) => {
 	req.files.fotoInput.map((foto) => {
 		arr.push(foto.name);
 		fs.rename(foto.path, __dirname + '/public/img/' + foto.name);
-	})
+	});
 });
 
 

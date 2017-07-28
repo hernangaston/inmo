@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { savePropiedad, uploadImage } from '../redux/actions';
+import { savePropiedad } from '../redux/actions';
 import PropiedadForm from './PropiedadForm.jsx';
 
 
@@ -18,6 +18,7 @@ class PropiedadFormPage extends Component {
 		.then(this.setState({redirect: true}));				
 	}
 
+
 	render () {
 		return (
 			<div>
@@ -26,8 +27,7 @@ class PropiedadFormPage extends Component {
 				<Redirect to="/" /> : 
 				<PropiedadForm
 				propiedad={this.props.propiedad}
-				savePropiedad={this.savePropiedad.bind(this)}
-				uploadImage={this.uploadImage.bind(this)}
+				savePropiedad={this.savePropiedad.bind(this)}				
 				/>
 			}
 			</div>
@@ -43,4 +43,4 @@ function mapStateToProps(state, props) {
 	return { propiedad: null };
 };
 
-export default connect(mapStateToProps, { savePropiedad, uploadImage })(PropiedadFormPage);
+export default connect(mapStateToProps, { savePropiedad })(PropiedadFormPage);

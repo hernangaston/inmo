@@ -13,6 +13,7 @@ export default class Navigation extends Component {
 						<li><Link to="/" className="grey-text text-darken-1">Volver</Link></li>
 						<li><Link to="/propiedades" className="grey-text text-darken-1">Lista de Propiedades</Link></li>
 						<li><Link to="/PropiedadForm" className="grey-text text-darken-1">Nueva Propiedad</Link></li>
+						<li><Link to="/LoginForm" className="grey-text text-darken-1">Login</Link></li>
 					</ul>
 			      </div>
 			    </nav>

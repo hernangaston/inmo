@@ -21,7 +21,7 @@ export default function propiedades(state = [], action = {}){
 				...state,
 				action.propiedad
 				];
-			};
+			};	
 		default: 
 			return state;
 	}

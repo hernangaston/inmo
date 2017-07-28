@@ -14,10 +14,14 @@ function Propiedades ({ propiedades }){
 		        </div>
 		      </div>
 		);
-	const propiedadSingle = (<div className="container">{propiedades.map((prop) => <Propiedad propiedad={prop} key={prop._id} />)}</div>);
+	const propiedadSingle = (
+		<div className="container">	
+		{propiedades.map((prop) => <Propiedad propiedad={prop} key={prop._id} />)}</div>);
 	return (
 		<div className="row">
-			{ propiedades.length === 0 ? emptyMessage : propiedadSingle }
+			<div className="col s4">
+				{ propiedades.length === 0 ? emptyMessage : propiedadSingle }
+			</div>
 		</div>
 	);
 }
