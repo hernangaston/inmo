@@ -1,44 +1,62 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { fetchPropiedad } from '../redux/actions';
 
 
 class PropiedadPage extends Component {
-	
-	componentDidMount(){
-		if(this.props.params._id) {
-			this.props.fetchPropiedad(this.props.params._id)
+	constructor(props) {
+		super(props)
+		this.state = {
+			_id: this.props.propiedad ? this.props.propiedad._id : null,
+			titulo: this.props.propiedad ? this.props.propiedad.titulo : '',
+			precio: this.props.propiedad ? this.props.propiedad.precio : '',
+			descripcion: this.props.propiedad ? this.props.propiedad.descripcion : '',
+			foto: this.props.propiedad ? this.props.propiedad.fotos : [],
+			redirect: false
 		}
 	}
+	
+	componentDidMount(){
+		$(document).ready(() => {
+	      $('.slider').slider({indicators: false});
+	    });
+	}
+
+
 
 	render(){
-
-		var foto = this.props.propiedad.foto.map((f) => { 
-			return (<a className="carousel-item" href="#"><img src={"../static/img/" + f} key={f.toString()} /></a>)
+		var foto = this.state.foto.map((f) => {			 
+			return (<li>
+				<img src={"../img/" + f} key={f.toString()} />
+			</li>);
 		});
 
 		return(
 		<div className="row">
 			<div className="col s12 m8 l6 offset-l3 offset-m2">
-				<h1 className="teal">{this.props.propiedad.titulo}</h1>
-				<h2 className="green-text">{this.props.propiedad.precio}</h2>					
-			  	<p>{this.props.propiedad.descripcion}</p>
-			  	<Link to="/propiedades">Volver</Link>
+				<h1>Titulo: {this.state.titulo}</h1>
+				<div className="slider"><ul className="slides">{ foto }</ul></div>
+				<h2>Precio: {this.state.precio}</h2>					
+			  	<p>Descripcion: {this.state.descripcion}</p>		  	
+		  	    <Link to="/editar"><button className="btn">Editar</button></Link>
+		  	    <Link to="/editar"><button className="btn">Editar</button></Link>
+		  	    <Link to="/editar"><button className="btn">Editar</button></Link>	  	 
 			</div>
 		</div>);
 	}
 }
 
 const mapStateToProps = (state, props) => {	
-	if(props.params._id) {
+	if(props.match.params._id) {
 		return {
-			propiedad: state.propiedades.find(item => item._id === props.params._id)
+			propiedad: state.propiedades.find(item => item._id === props.match.params._id)
 		}
 	}
 	return { propiedad: null };
 }
 
-export default connect(mapStateToProps, { fetchPropiedad })(PropiedadPage);
+export default withRouter(connect(mapStateToProps)(PropiedadPage));
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Propiedades  from './Propiedades.jsx';
@@ -30,5 +31,5 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { fetchPropiedades })(PropiedadesLista);
+export default withRouter(connect(mapStateToProps, { fetchPropiedades })(PropiedadesLista));
 

@@ -5,8 +5,6 @@ import axios from 'axios';
 export const SET_PROPIEDADES = 'SET_PROPIEDADES';
 export const ADD_PROPIEDAD = 'ADD_PROPIEDAD';
 export const PROPIEDAD_FETCHED = 'PROPIEDAD_FETCHED';
-export const SUCCESS_UPLOAD = 'SUCCESS_UPLOAD';
-export const FAIL_UPLOAD = 'FAIL_UPLOAD';
 
 
 
@@ -31,20 +29,6 @@ export function propiedadFetched(propiedad){
 	}
 }
 
-export function successUpload(res){
-	return {
-		type: SUCCESS_UPLOAD,
-		res
-	}
-}
-
-
-export function failUpload(err){
-	return {
-		type: FAIL_UPLOAD,
-		err
-	}
-}
 
 export function fetchPropiedades(){
 	return dispatch => {
@@ -56,9 +40,9 @@ export function fetchPropiedades(){
 
 export function fetchPropiedad(id){
 	return dispatch => {
-		fetch(`/api/propiedad/${id}`)
+		fetch('/api/propiedad/' + id)
 		.then(res => res.json())
-		.then(data => dispatch(propiedadFetched(data.propiedad)));
+		.then(data =>dispatch(propiedadFetched(data.propiedad)))
 	}
 }
 

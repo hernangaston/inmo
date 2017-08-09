@@ -10,7 +10,7 @@ export default function propiedades(state = [], action = {}){
 				action.propiedad
 			];
 		case PROPIEDAD_FETCHED:
-			const index = state.findIndex(item => item._id === action.propiedad._id);
+			const index = state.findIndex(item => item._id === state._id);
 			if(index > -1) {
 				return state.map(item => {
 					if(item._id === action.propiedad._id) return action.propiedad;

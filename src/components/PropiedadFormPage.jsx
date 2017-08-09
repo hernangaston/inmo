@@ -23,8 +23,7 @@ class PropiedadFormPage extends Component {
 		return (
 			<div>
 			{
-				this.state.redirect ?
-				<Redirect to="/" /> : 
+				this.state.redirect ? <Redirect to="/" /> : 
 				<PropiedadForm
 				propiedad={this.props.propiedad}
 				savePropiedad={this.savePropiedad.bind(this)}				

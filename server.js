@@ -19,6 +19,18 @@ app.use(formidable({
   multiples: true // req.files to be arrays of files 
 }));
 
+
+/*app.set('views', './views');
+
+app.set('view engine', 'pug');
+
+app.get("*", (req, res) => {
+	res.render("index");
+});
+
+*/
+
+
 var arr = [];
 app.post('/upload', (req, res) => {	
 	req.files.fotoInput.map((foto) => {
