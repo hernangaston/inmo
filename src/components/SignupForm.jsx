@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class LoginForm extends Component{	
+
+import { userSignUp } from '../redux/actions';
+
+
+class SignUpForm extends Component{	
 	constructor(props){
 		super(props);
 		this.state = {
 			email: '',
 			password: '',
+			passwordConfirmation: '',
 			redirect: false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +31,15 @@ export default class LoginForm extends Component{
 
 	handleSubmit(e){
 		e.preventDefault();
-		console.log("Log in");
+		if(this.state.password ===  this.state.passwordConfirmation)
+		{
+			this.props.userSignUp(this.state);
+		}
+		else
+		{
+			console.log("Los passwords no coinciden");
+		}
+		
 	}
 
 	render(){
@@ -42,10 +58,15 @@ export default class LoginForm extends Component{
 							      <label htmlFor="password">Password</label>
 							    </div>
 							  </div>
+							  <div className="row">
+							    <div className="input-field col s12">
+							      <input id="passwordConfirmation" type="password" name="passwordConfirmation" value={this.state.passwordConfirmation} onChange={this.handleChange} className="validate" />
+							      <label htmlFor="passwordConfirmation">Password Confirmation</label>
+							    </div>
+							  </div>
 							  <div className="modal-footer">
-						      <button type="submit" className="modal-action modal-close waves-effect waves-green btn-flat left">Login</button>
-						      <Link to="/signup" className="modal-action modal-close waves-effect waves-green btn-flat center">Registrate</Link>
-						      <Link to="/" className="modal-action modal-close waves-effect waves-green btn-flat rigtht">Forgot Password?</Link>
+						      <button type="submit" className="modal-action modal-close waves-effect waves-green btn-flat left">Registrate</button>
+						      <Link to="/" className="modal-action modal-close waves-effect waves-green btn-flat rigtht">Cancel</Link>
 						      </div>
 							</form>
 					    </div>
@@ -56,3 +77,12 @@ export default class LoginForm extends Component{
 		);
 	}
 }
+
+
+SignUpForm.propTypes ={
+	userSignUp: PropTypes.func.isRequired
+}
+
+
+
+export default withRouter(connect(null, { userSignUp })(SignUpForm));

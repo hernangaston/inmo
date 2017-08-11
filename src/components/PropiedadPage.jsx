@@ -43,7 +43,7 @@ class PropiedadPage extends Component {
 			  	<p>Descripcion: {this.state.descripcion}</p>		  	
 		  	    <Link to="/editar"><button className="btn">Editar</button></Link>
 		  	    <Link to="/editar"><button className="btn">Editar</button></Link>
-		  	    <Link to="/editar"><button className="btn">Editar</button></Link>	  	 
+		  	    <Link to="/"><button className="btn">Volver</button></Link>	  	 
 			</div>
 		</div>);
 	}

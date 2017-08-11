@@ -5,7 +5,7 @@ import axios from 'axios';
 export const SET_PROPIEDADES = 'SET_PROPIEDADES';
 export const ADD_PROPIEDAD = 'ADD_PROPIEDAD';
 export const PROPIEDAD_FETCHED = 'PROPIEDAD_FETCHED';
-
+export const USER_REGISTER = 'USER_REGISTER';
 
 
 export function setPropiedades(propiedades){
@@ -29,6 +29,13 @@ export function propiedadFetched(propiedad){
 	}
 }
 
+
+export function userSignUpRegister(user){
+	return {
+		type: USER_REGISTER,
+		user
+	}
+}
 
 export function fetchPropiedades(){
 	return dispatch => {
@@ -61,3 +68,11 @@ export function savePropiedad(data) {
 }
 
 
+export function userSignUp(userData){
+	return dispatch => {
+		return fetch('/api/users', {
+			method: 'POST'
+		})
+		.then(userData => dispatch(userSignUpRegister(userData.user)));
+	}
+}

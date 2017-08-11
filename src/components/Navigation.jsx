@@ -12,7 +12,7 @@ export default class Navigation extends Component {
 			        <ul className="right hide-on-med-and-down">
 						<li><Link to="/Propiedades" className="grey-text text-darken-1">Lista</Link></li>
 						<li><Link to="/PropiedadFormPage" className="grey-text text-darken-1">Nueva Propiedad</Link></li>
-						<li><Link to="/LoginForm" className="grey-text text-darken-1">Login</Link></li>
+						<li><Link to="/login" className="grey-text text-darken-1">Login</Link></li>
 					</ul>
 			      </div>
 			    </nav>
