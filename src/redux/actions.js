@@ -1,6 +1,6 @@
 //import es6-promise from 'es6-promise';
-//import fetch from 'isomorphic-fetch';
-import axios from 'axios';
+import fetch from 'isomorphic-fetch';
+//import axios from 'axios';
 
 export const SET_PROPIEDADES = 'SET_PROPIEDADES';
 export const ADD_PROPIEDAD = 'ADD_PROPIEDAD';
@@ -71,7 +71,11 @@ export function savePropiedad(data) {
 export function userSignUp(userData){
 	return dispatch => {
 		return fetch('/api/users', {
-			method: 'POST'
+			method: 'POST',
+			body: JSON.stringify(userData),
+			headers: {
+				"Content-Type": "application/json"
+			}
 		})
 		.then(userData => dispatch(userSignUpRegister(userData.user)));
 	}

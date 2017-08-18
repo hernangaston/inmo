@@ -33,19 +33,23 @@ class SignUpForm extends Component{
 		e.preventDefault();
 		if(this.state.password ===  this.state.passwordConfirmation)
 		{
+			console.log(this.state);
 			this.props.userSignUp(this.state);
+			this.setState({ redirect: true });
 		}
 		else
 		{
 			console.log("Los passwords no coinciden");
 		}
-		
+		this.setState({
+			redirect: true
+		});		
 	}
 
 	render(){
 		const form =(
 					    <div className="modal-content">
-						    <form action="POST" onSubmit={this.handleSubmit} className="col s12">
+						    <form onSubmit={this.handleSubmit} className="col s12">
 							 <div className="row">
 							    <div className="input-field col s12">
 							      <input id="email" type="email" name="email" value={this.state.email} onChange={this.handleChange} className="validate" />
@@ -83,6 +87,11 @@ SignUpForm.propTypes ={
 	userSignUp: PropTypes.func.isRequired
 }
 
+const mapStateToProps = (state) => {
+	return {
+		user: state
+	}
+}
 
 
-export default withRouter(connect(null, { userSignUp })(SignUpForm));
+export default withRouter(connect(mapStateToProps, { userSignUp })(SignUpForm));

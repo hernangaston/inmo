@@ -69,6 +69,14 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 				(err, result) => { res.json({ propiedades: result.ops[0] })
 			});
 		});
+
+		app.post('/api/users', (req, res) => {
+			console.log(req.body);
+			const { email, password } = req.body;
+			db.collection('users').insert({ email, password },
+				(err, result) => { res.json({ users: result.ops[0] })
+			});
+		});
 	}
 
 	app.listen(3000, function(){
