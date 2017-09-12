@@ -1,6 +1,6 @@
 //import es6-promise from 'es6-promise';
 import fetch from 'isomorphic-fetch';
-//import axios from 'axios';
+import axios from 'axios';
 
 export const SET_PROPIEDADES = 'SET_PROPIEDADES';
 export const ADD_PROPIEDAD = 'ADD_PROPIEDAD';

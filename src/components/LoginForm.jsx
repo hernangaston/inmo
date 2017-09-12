@@ -15,6 +15,8 @@ export default class LoginForm extends Component{
 
 	componentDidMount(){
 		$('#modal1').modal('open');
+		var prueba = $('#email').css('color');
+		console.log("Color: " + prueba);
 	}
 
 	handleChange(e){
@@ -32,7 +34,7 @@ export default class LoginForm extends Component{
 						    <form action="POST" onSubmit={this.handleSubmit} className="col s12">
 							 <div className="row">
 							    <div className="input-field col s12">
-							      <input id="email" type="email" name="email" value={this.state.email} onChange={this.handleChange} className="validate" />
+							      <input className="red" id="email" type="email" name="email" value={this.state.email} onChange={this.handleChange} className="validate" />
 							      <label htmlFor="email">Email</label>
 							    </div>
 							  </div>    	

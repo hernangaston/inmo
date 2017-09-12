@@ -1,17 +1,17 @@
-
-const express = require('express');
-const mongodb = require('mongodb');
-const bodyParser = require('body-parser');
-var path = require('path');
-var formidable = require('express-formidable');
-var fs = require('fs');
+import express from 'express';
+import mongodb from 'mongodb';
+import bodyParser from 'body-parser';
+import path from 'path';
+import formidable from 'express-formidable';
+import fs from 'fs';
+import users from './routes/users';
 const app = express();
 
 var dbUrl = "mongodb:/\/localhost/hernan"; 
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+//app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use(express.static(__dirname + '/public'));
 
@@ -19,6 +19,7 @@ app.use(formidable({
   multiples: true // req.files to be arrays of files 
 }));
 
+app.use('/api/users', users);
 
 /*app.set('views', './views');
 
@@ -70,13 +71,14 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 			});
 		});
 
+		/*podria salvarlo aqui en la bbdd pero pruebo mas adelante cuando mejore el router
 		app.post('/api/users', (req, res) => {
 			console.log(req.body);
 			const { email, password } = req.body;
 			db.collection('users').insert({ email, password },
 				(err, result) => { res.json({ users: result.ops[0] })
 			});
-		});
+		});*/
 	}
 
 	app.listen(3000, function(){

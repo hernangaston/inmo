@@ -11,12 +11,16 @@ import { userSignUp } from '../redux/actions';
 class SignUpForm extends Component{	
 	constructor(props){
 		super(props);
+		
 		this.state = {
 			email: '',
 			password: '',
 			passwordConfirmation: '',
-			redirect: false
+			redirect: false,
+			errors: {},
+			isLoading: false
 		}
+
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
@@ -31,22 +35,16 @@ class SignUpForm extends Component{
 
 	handleSubmit(e){
 		e.preventDefault();
-		if(this.state.password ===  this.state.passwordConfirmation)
-		{
-			console.log(this.state);
-			this.props.userSignUp(this.state);
-			this.setState({ redirect: true });
-		}
-		else
-		{
-			console.log("Los passwords no coinciden");
-		}
-		this.setState({
-			redirect: true
-		});		
+		this.setState({ errors: {}, isLoading: true });
+		
+		this.props.userSignUp(this.state)
+		.then(() => {},
+			({ data }) => {this.setState({ errors: data, isLoading: false})}
+		); 
 	}
 
 	render(){
+		const { errors } = this.state;
 		const form =(
 					    <div className="modal-content">
 						    <form onSubmit={this.handleSubmit} className="col s12">
@@ -54,6 +52,7 @@ class SignUpForm extends Component{
 							    <div className="input-field col s12">
 							      <input id="email" type="email" name="email" value={this.state.email} onChange={this.handleChange} className="validate" />
 							      <label htmlFor="email">Email</label>
+							      { errors.email && <span>{errors.email}</span> }
 							    </div>
 							  </div>    	
 							  <div className="row">
