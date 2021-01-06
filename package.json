@@ -22,7 +22,7 @@
     "webpack": "^3.0.0"
   },
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "body-parser": "^1.17.2",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.29",
